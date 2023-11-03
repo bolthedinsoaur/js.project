@@ -1,0 +1,177 @@
+import java.util.Scanner;
+
+public class App {
+    static Scanner scnr = new Scanner(System.in);
+
+    // Show the menu options to the user
+    public static void showMenu() {
+        System.out.print("Fall 2022 - CS1083 - Section 005 - Project 2 - FormDrawer - written by Brian Riojas" + "\n");
+        System.out.println("\n" + "Please, select one of the following options");
+        System.out.println("0. Exit");
+        System.out.println("1. Draw a Diamond");
+        System.out.println("2. Draw a Rectangle");
+        System.out.println("3. Draw a Triangle");
+    }
+
+    // start of diamond
+    // code///////////////////////////////////////////////////////////////////////////////////SSSSSSSSSSSSSSSSSSSSSSSSSSS
+    // Draw a diamond based on user input
+    public static void Diamond() {
+        System.out.println("Please write the char that you would like to be used to fill the diamond");
+        char chr = scnr.next().charAt(0);
+        System.out.println("Please write the char that you would like to be used as edge of the diamond");
+        char edgeChar = scnr.next().charAt(0);
+        System.out
+                .println("What size do you want to be drawn?" + "\n" + "Please enter an even number between 0 and 60");
+        int size = scnr.nextInt();
+        while (true) {
+            if (size % 2 == 0 && size <= 60) {
+                drawDiamond(chr, edgeChar, size);
+                break;
+            } else {
+                System.out.print("Incorrect selection" + "\n");
+                Diamond();
+                break;
+            }
+        }
+    }
+
+    // Draw the diamond shape based on user input
+    public static void drawDiamond(char fillChar, char edgeChar, int size) {
+        for (int i = 0; i < size; ++i) {
+            showCharNTimes(edgeChar, size / 2 - 1 - i);
+            System.out.println();
+            showCharNTimes(edgeChar, size * 2 - 1 - i);
+            System.out.println();
+        }
+    }
+
+    // Helper method to print a character a certain number of times
+    public static void showCharNTimes(char c, int n) {
+        for (int i = 0; i < n; ++i) {
+            System.out.print(c);
+        }
+    }
+    // end of diamond
+    // code///////////////////////////////////////////////////////////////////////////////EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+
+    // START of
+    // RECATNGLE////////////////////////>:3////////////////////////////////////////////////////SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+    public static void Rectangle() {
+        System.out.println("Please write the char that you would like to be used as the contour of the rectangle");
+        char chr = scnr.next().charAt(0);
+        System.out.println("Do you want the rectangle to be printed hollow?");
+        char squareHollow = scnr.next().charAt(0);
+        System.out.println("What size do you want the Rectangle to be drawn?" + "\n"
+                + "Please insert any number between 0 and 60");
+        int size = scnr.nextInt();
+        if (squareHollow == 'Y' || squareHollow == 'y') {
+            drawRectangleLine(chr, size);
+        } else if (squareHollow == 'n' || squareHollow == 'N') {
+            drawRectangle(chr, size);
+        }
+    }
+
+    public static void drawRectangle(char chr, int size) {
+        for (int i = 1; i <= size; i++) {
+            for (int j = 1; j <= size; j++) {
+                if (i == 1 || j == 1 || i == size || j == size)
+                    System.out.print(chr);
+                else
+                    System.out.print(chr);
+            }
+            System.out.println();
+        }
+    }
+
+    public static void drawRectangleLine(char chr, int size) {
+
+        for (int i = 1; i <= size; i++) {
+            for (int j = 1; j <= size; j++) {
+                if (i == 1 || j == 1 || i == size || j == size)
+                    System.out.print(chr);
+                else
+                    System.out.print(" ");
+            }
+            System.out.println();
+        }
+    }
+    // END of recatngle
+    // code///////////////////////////////////////////////////////////////////////////////EEEEEEEEEEEEEEEEEEEEEEEEEEEE
+
+    // START of
+    // TRIANGLE////////////////////////>:3////////////////////////////////////////////////////SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+    public static void Triangle() {
+        System.out.println("What size do you want the Triangle to be drawn?" + "\n"
+                + "Please insert an even number between 0 and 60");
+        int width = scnr.nextInt();
+        if (width % 2 == 0) {
+            drawTriangle(width);
+        } else {
+            System.out.println("Incorrect Input");
+            Triangle();
+        }
+    }
+
+    public static void drawTriangle(int width) {
+
+        for (int i = 1; i <= width; i++) {
+            for (int j = 1; j <= width - i; j++) {
+                System.out.print(" ");
+            }
+            if (i == 1 || i == width)
+                for (int j = 1; j <= i * 2 - 1; j++) {
+                    System.out.print("_");
+                }
+            else {
+                for (int j = 1; j <= i * 2 - 1; j++) {
+                    if (j == 1)
+                        System.out.print("/");
+                    else if (j == i * 2 - 1)
+                        System.out.print("\\");
+                    else
+                        System.out.print(" ");
+
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    // END of triangle
+    // code//////////////////////////////////////////////////////////////////
+
+    public static void getMenuSelection() {
+        showMenu();
+        int userInput = scnr.nextInt();
+        while (true) {
+            if (userInput == 0) {
+                System.out.print("Thank you for using the formDrawer program, Good bye!");
+                break;
+            } else if (userInput == 1) {
+                Diamond();
+                main(null);
+            }
+
+            else if (userInput == 2) {
+                Rectangle();
+                main(null);
+            }
+
+            else if (userInput == 3) {
+                Triangle();
+                main(null);
+            }
+
+            else if (userInput > 3 || userInput < 0) {
+                System.out.print("Incorrect option, please try again" + "\n");
+                main(null);
+            }
+        }
+        scnr.close();
+    }
+
+    public static void main(String[] args) {
+        getMenuSelection();
+    }
+}
